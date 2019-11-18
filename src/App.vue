@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Weather :city="weather.name" :description="weather.weather[0].description" :icon = "weather.weather[0].icon" :temperature = "weather.main.temp"/>
+    <Weather :city="weather.city_name" :description="weather.weather.description"  :temperature = "weather.temp"/>
   </div>
 </template>
 
@@ -14,18 +14,25 @@ export default {
   },
   data(){
     return{
-       weather: []
+       weather: [],
+       city: 'Lagos,NG'
+    }
+  },
+  methods:{
+    updateCity(){
+      return this.city
     }
   },
   mounted(){
-    fetch('https://fcc-weather-api.glitch.me/api/current?lat=35&lon=139',{
+    const API_KEY = "c564a6cce5c549dcbe096a696326d95d";
+    fetch(`https://api.weatherbit.io/v2.0/current?city=${this.city}&key=${API_KEY}`,{
       method: 'get'
     })
-    .then((Response)=>{
-     return Response.json()
+    .then((response)=>{
+     return response.json()
     })
     .then((jsonData)=>{
-      this.weather = jsonData
+      this.weather = jsonData.data[0]
     })
   }
 }

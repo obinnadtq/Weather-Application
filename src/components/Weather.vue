@@ -3,7 +3,6 @@
     <div class="container">
         <h2 id="city">{{city}}</h2>
         <div class="middle">
-          <img :src="icon" alt="icon" id="icon">
           <div class="degrees">
             <h1>{{Math.round(temperature)}}</h1>
             <span>°</span>
